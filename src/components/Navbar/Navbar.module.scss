@@ -1,0 +1,29 @@
+@import '../../defaults';
+
+.Navbar {
+    width: 100%;
+    height: 40px;
+    margin-top: 70px;
+    margin-bottom: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @media (max-width: 669px) {
+        margin-top: 40px;
+    }
+
+    .Logo {
+        width: 278px;
+        height: 40px;
+    }
+
+    .Navigation {
+        &Item {
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 700;
+            color: $c-white-1;
+        }
+    }
+}   

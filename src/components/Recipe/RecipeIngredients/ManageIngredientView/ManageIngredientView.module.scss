@@ -1,0 +1,104 @@
+@import '../../../../defaults';
+
+@keyframes show {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1
+    }
+}
+
+.ManageIngredientView {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: show 300ms ease;
+
+    .Content {
+        width: 522px;
+        background-color: $c-white-1;
+        border-radius: 8px;
+        color: $c-black-1;
+        padding: 12px 24px;
+        position: relative;
+
+        .MainTitle {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .InputsSection {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 290px 80px 80px;
+            grid-template-rows: 34px;
+            justify-content: space-between;
+            margin-bottom: 28px;
+
+            .Input {
+                border: 1px solid $c-grey-3;
+                border-radius: 6px;
+                padding: 0 10px;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 16px;
+                color: $c-black-1;
+
+                &:first-of-type {
+                }
+            }
+        }
+
+        .AddBtn {
+            width: 100%;
+            height: 40px;
+            border-radius: 6px;
+            background-color: $c-black-1;
+            color: $c-white-1;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            text-align: center;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .CloseButton {
+            width: 24px;
+            height: 24px;
+            position: absolute;
+            right: 12px;
+            top: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: $c-grey-1;
+            color: $c-white-1;
+            border: none;
+            border-radius: 3px;
+            outline: none;
+        }
+    }
+
+    .ShadeBackground {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        background-color: rgba($c-black-1, 0.8);
+    }
+}

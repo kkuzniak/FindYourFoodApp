@@ -1,0 +1,86 @@
+@import '../../defaults';
+
+.Recipe {
+    width: 100%;
+    height: 620px;
+    background-color: $c-white-1;
+    border-radius: 18px;
+    display: grid;
+    grid-template-columns: 480px auto;
+    grid-template-rows: 100%;
+    overflow: hidden;
+
+    .ImageContainer {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+
+        img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 105%;
+        }
+    }
+
+    .DetailsContainer {
+        height: 100%;
+        padding: 50px 0 20px 40px;
+        display: flex;
+        flex-flow: column;
+
+        .MainTitle {
+            width: calc(100% - 60px);
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+
+        .IngredientsHeader {
+            width: calc(100% - 60px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+
+            h2 {
+                font-weight: 400;
+                font-size: 20px;
+            }
+
+            h3 {
+                font-weight: 700;
+                font-size: 16px;
+                color: $c-grey-3;
+            }
+        }
+
+        .Line {
+            width: calc(100% - 60px);
+            height: 1px;
+            background-color: $c-grey-2;
+            padding-right: 40px;
+            margin-bottom: 8px;
+        }
+
+        .AddIngredientButton {
+            width: calc(100% - 60px);
+            height: 50px;
+            border-radius: 6px;
+            background-color: $c-black-1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: $c-white-1;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            margin-top: 20px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+    }
+}
