@@ -2,19 +2,15 @@ import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import * as actions from '../../../../modules/actions/index';
 import classes from './RecipeIngredient.module.scss';
+import PropTypes from 'prop-types';
 
 const RecipeIngredient = ({id, name, measure}) => {
     const dispatch = useDispatch();
     const onRemoveIngredient = useCallback((ingId) => dispatch(actions.removeIngredient(ingId)), [dispatch])
     const onToggleEditIngredient = useCallback((editedIngredientId) => dispatch(actions.setEditedIngredientId(editedIngredientId)), [dispatch]);
 
-    const removeIngredientHandler = () => {
-        onRemoveIngredient(id);
-    }
-
-    const showEditIngredientHandler = () => {
-        onToggleEditIngredient(id);
-    }
+    const removeIngredientHandler = useCallback(() => {onRemoveIngredient(id)}, [onRemoveIngredient, id])
+    const showEditIngredientHandler = useCallback(() => {onToggleEditIngredient(id)}, [onToggleEditIngredient, id]);
 
     return (
         <div className={classes.RecipeIngredient}>
@@ -35,4 +31,10 @@ const RecipeIngredient = ({id, name, measure}) => {
     );
 };
 
-export default RecipeIngredient;
+RecipeIngredient.propTypes = {
+    id: PropTypes.string,
+    name: PropTypes.string,
+    measure: PropTypes.array
+};
+
+export default React.memo(RecipeIngredient);

@@ -17,4 +17,4 @@ const RecipeItems = () => {
     );
 };
 
-export default RecipeItems;
+export default React.memo(RecipeItems);

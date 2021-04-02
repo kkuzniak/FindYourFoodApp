@@ -1,3 +1,4 @@
+import React from 'react';
 import classes from './App.module.scss';
 import mainBgSrc from './assets/main-bg.jpg';
 import Layout from './containers/Layout/Layout';
@@ -13,4 +14,4 @@ const App = () => {
   );
 }
 
-export default App;
+export default React.memo(App);

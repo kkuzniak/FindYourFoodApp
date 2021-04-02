@@ -9,9 +9,7 @@ const Navbar = () => {
     const dispatch = useDispatch();
     const onResetFetchedRecipe = useCallback(() => dispatch(actions.resetFetchedRecipe()), [dispatch]);
 
-    const homePageLinkClickHandler = () => {
-        onResetFetchedRecipe();
-    }
+    const homePageLinkClickHandler = useCallback(() => {onResetFetchedRecipe()}, [onResetFetchedRecipe]);
 
     return (
         <div className={classes.Navbar}>
@@ -23,4 +21,4 @@ const Navbar = () => {
     );
 };
 
-export default Navbar;
+export default React.memo(Navbar);

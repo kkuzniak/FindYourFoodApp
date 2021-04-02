@@ -27,8 +27,8 @@ export const fetchRecipeStart = () => ({type: actionTypes.FETCH_RECIPE_START});
 
 export const fetchRecipeSuccess = (recipe) => ({type: actionTypes.FETCH_RECIPE_SUCCESS, fetchedRecipe: recipe});
 
-export const fetchRecipe = (recId) => 
-    async (dispatch) => {
+export const fetchRecipe = recId => 
+    async dispatch => {
         dispatch(fetchRecipeStart());
         const res = await axiosGetRecipeById.get(`/${recId}/information?includeNutrition=false`);
         const {id, title, image, extendedIngredients} = res.data;

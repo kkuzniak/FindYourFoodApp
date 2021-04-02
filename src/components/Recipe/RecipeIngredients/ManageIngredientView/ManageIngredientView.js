@@ -4,6 +4,7 @@ import classes from './ManageIngredientView.module.scss';
 import * as actions from '../../../../modules/actions/index';
 import { v4 as uuid } from 'uuid';
 import { getEditedIngredientId, getFetchedRecipe } from '../../../../modules/selectors';
+import PropTypes from 'prop-types';
 
 const selectOptions = [
     'pc',
@@ -50,7 +51,7 @@ const ManageIngredientView = ({title, buttonName}) => {
             setAmountInput(ingredient.measure.amount.toFixed(1));
             setUnitInput(ingredient.measure.unit);
         }    
-    }, [editedIngredientId, fetchedRecipeIngredients])
+    }, [editedIngredientId, fetchedRecipeIngredients]);
 
 
     const hideViewHandler = () => {
@@ -59,7 +60,7 @@ const ManageIngredientView = ({title, buttonName}) => {
 
     return (
         <div className={classes.ManageIngredientView}>
-            <div className={classes.Content}>
+            <form className={classes.Content}>
                 <h2 className={classes.MainTitle}>{title}</h2>
                 <section className={classes.InputsSection}>
                     <input placeholder="Name of your ingredient" className={classes.Input} value={nameInput} onChange={(event) => setNameInput(event.target.value)} type="text"/>
@@ -72,10 +73,15 @@ const ManageIngredientView = ({title, buttonName}) => {
                 <button className={classes.CloseButton} onClick={hideViewHandler}>
                     <i className="fas fa-times"/>
                 </button>
-            </div>
+            </form>
             <div className={classes.ShadeBackground} onClick={hideViewHandler}></div>
         </div>
     );
 };
 
-export default ManageIngredientView;
+ManageIngredientView.propTypes = {
+    title: PropTypes.string,
+    buttonName: PropTypes.string
+};
+
+export default React.memo(ManageIngredientView);

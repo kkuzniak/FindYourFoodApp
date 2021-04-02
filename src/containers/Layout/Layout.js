@@ -1,3 +1,4 @@
+import React from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import classes from './Layout.module.scss';
 import SearchBar from '../../components/SearchBar/SearchBar';
@@ -38,4 +39,4 @@ const Layout = () => {
     );
 };
 
-export default Layout;
+export default React.memo(Layout);

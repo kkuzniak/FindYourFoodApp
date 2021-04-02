@@ -5,4 +5,4 @@ const Loader = () => (
     <div className={classes.Loader}></div>
 );
 
-export default Loader;
+export default React.memo(Loader);

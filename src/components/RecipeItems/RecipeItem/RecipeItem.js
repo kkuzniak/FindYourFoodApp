@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './RecipeItem.module.scss';
+import PropTypes from 'prop-types';
 
 const RecipeItem = ({title, imgSrc}) => (
     <div className={classes.RecipeItem}>
@@ -10,4 +11,9 @@ const RecipeItem = ({title, imgSrc}) => (
     </div>
 );
 
-export default RecipeItem;
+RecipeItem.propTypes = {
+    title: PropTypes.string,
+    imgSrc: PropTypes.string
+};
+
+export default React.memo(RecipeItem);
