@@ -1,18 +1,21 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from './ManageIngredientView.module.scss';
 import * as actions from '../../../../modules/actions/index';
 import { v4 as uuid } from 'uuid';
-import { getEditIngredientShown } from '../../../../modules/selectors';
+import { getEditedIngredientId, getFetchedRecipe } from '../../../../modules/selectors';
 
 const selectOptions = [
     'pc',
     'Tbsp',
-    'tsp',
+    'tsps',
     'cup',
     'g',
     'kg',
-    'ml'
+    'ml',
+    'servings',
+    'slice',
+    'large'
 ];
 
 const ManageIngredientView = ({title, buttonName}) => {
@@ -20,45 +23,43 @@ const ManageIngredientView = ({title, buttonName}) => {
     const [amountInput, setAmountInput] = useState(1);
     const [unitInput, setUnitInput] = useState('g');
 
-    const editIngredientShown = useSelector(getEditIngredientShown);
+    const editedIngredientId = useSelector(getEditedIngredientId);
+    const fetchedRecipeIngredients = useSelector(getFetchedRecipe).ingredients;
 
     const dispatch = useDispatch();
-    const onAddIngredient = useCallback(newIngredient => dispatch(actions.addIngredient(newIngredient)), [dispatch]);
+    const onSaveIngredient = useCallback(ingredient => dispatch(actions.saveIngredient(ingredient)), [dispatch]);
     const onToggleAddNewIngredient = useCallback(isShown => dispatch(actions.toggleAddNewIngredient(isShown)), [dispatch]);
-    const onToggleEditIngredient = useCallback(isShown => dispatch(actions.toggleEditIngredient(isShown)), [dispatch]);
+    const onSetEditedIngredientId = useCallback(editedIngredientId => dispatch(actions.setEditedIngredientId(editedIngredientId)), [dispatch]);
 
-    const addNewIngredientHandler = () => {
-        const newIngredient = {
-            id: uuid(),
+    const saveIngredientHandler = () => {
+        onSaveIngredient({
+            id: editedIngredientId ? editedIngredientId : uuid(),
             name: nameInput,
             measure: {
                 amount: amountInput,
                 unit: unitInput
             }
-        };
-        onAddIngredient(newIngredient);
+        });
         hideViewHandler();
     };
 
-    const saveEditedIngredientHandler = () => {
-        
-    };
+    useEffect(() => {
+        if (editedIngredientId) {
+            const ingredient = fetchedRecipeIngredients.find(el => el.id === editedIngredientId);
+            setNameInput(ingredient.name);
+            setAmountInput(ingredient.measure.amount.toFixed(1));
+            setUnitInput(ingredient.measure.unit);
+        }    
+    }, [editedIngredientId, fetchedRecipeIngredients])
+
 
     const hideViewHandler = () => {
-        if (editIngredientShown) {
-            onToggleEditIngredient(false);
-        } else {
-            onToggleAddNewIngredient(false);
-        }
-    }
-
-    if (editIngredientShown) {
-        // setNameInput
+        editedIngredientId == null ? onToggleAddNewIngredient(false) : onSetEditedIngredientId(null);
     }
 
     return (
         <div className={classes.ManageIngredientView}>
-            <form className={classes.Content}>
+            <div className={classes.Content}>
                 <h2 className={classes.MainTitle}>{title}</h2>
                 <section className={classes.InputsSection}>
                     <input placeholder="Name of your ingredient" className={classes.Input} value={nameInput} onChange={(event) => setNameInput(event.target.value)} type="text"/>
@@ -67,11 +68,11 @@ const ManageIngredientView = ({title, buttonName}) => {
                         {selectOptions.map((opt, index) => (<option key={index} value={opt}>{opt}</option>))}
                     </select>
                 </section>
-                <button className={classes.AddBtn} onClick={addNewIngredientHandler}>{buttonName}</button>
+                <button className={classes.SaveBtn} onClick={saveIngredientHandler}>{buttonName}</button>
                 <button className={classes.CloseButton} onClick={hideViewHandler}>
                     <i className="fas fa-times"/>
                 </button>
-            </form>
+            </div>
             <div className={classes.ShadeBackground} onClick={hideViewHandler}></div>
         </div>
     );

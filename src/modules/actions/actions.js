@@ -3,26 +3,17 @@ import {axiosSearchRecipe} from '../../axios-config';
 import {axiosGetRecipeById} from '../../axios-config';
 import { v4 as uuid } from 'uuid';
 
-export const searchRecipesStart = () => {
-    return {
-        type: actionTypes.SEARCH_RECIPES_START
-    }
-};
-
-export const searchRecipesSuccess = (results) => {
-    return {
-        type: actionTypes.SEARCH_RECIPES_SUCCESS,
-        foundRecipes: results
-    };
-};
+export const resetSearchedRecipes = () => ({type: actionTypes.RESET_SEARCHED_RECIPES});
+export const searchRecipesStart = (searchValue) => ({type: actionTypes.SEARCH_RECIPES_START, searchValue});
+export const searchRecipesSuccess = (results) => ({type: actionTypes.SEARCH_RECIPES_SUCCESS, foundRecipes: results});
 
 export const searchRecipes = (text) => {
     return dispatch => {
-        dispatch(searchRecipesStart());
+        dispatch(searchRecipesStart(text));
         axiosSearchRecipe.get('/complexSearch', {
             params: {
                 query: text,
-                number: 40
+                number: 10
             }
         })
         .then(res => {
@@ -31,18 +22,10 @@ export const searchRecipes = (text) => {
     };
 };
 
-export const fetchRecipeStart = () => {
-    return {
-        type: actionTypes.FETCH_RECIPE_START
-    };
-};
+export const resetFetchedRecipe = () => ({type: actionTypes.RESET_FETCHED_RECIPE});
+export const fetchRecipeStart = () => ({type: actionTypes.FETCH_RECIPE_START});
 
-export const fetchRecipeSuccess = (recipe) => {
-    return {
-        type: actionTypes.FETCH_RECIPE_SUCCESS,
-        fetchedRecipe: recipe
-    };
-};
+export const fetchRecipeSuccess = (recipe) => ({type: actionTypes.FETCH_RECIPE_SUCCESS, fetchedRecipe: recipe});
 
 export const fetchRecipe = (recId) => 
     async (dispatch) => {
@@ -67,30 +50,8 @@ export const fetchRecipe = (recId) =>
         dispatch(fetchRecipeSuccess(recipe));
 };
 
-export const addIngredient = (newIngredient) => {
-    return {
-        type: actionTypes.ADD_INGREDIENT,
-        newIngredient: newIngredient
-    };
-};
-
-export const removeIngredient = (ingredientId) => {
-    return {
-        type: actionTypes.REMOVE_INGREDIENT,
-        ingredientId: ingredientId
-    };
-}
-
-export const toggleAddNewIngredient = (addNewIngredientShown) => {
-    return {
-        type: actionTypes.TOGGLE_ADD_NEW_INGREDIENT,
-        addNewIngredientShown: addNewIngredientShown
-    };
-}
-
-export const toggleEditIngredient = (editedIngredientId) => {
-    return {
-        type: actionTypes.SET_EDITED_INGREDIENT,
-        editedIngredientId
-    };
-}
+export const saveIngredient = (ingredient) => ({type: actionTypes.SAVE_INGREDIENT, ingredient});
+export const removeIngredient = (ingredientId) => ({type: actionTypes.REMOVE_INGREDIENT, ingredientId});
+export const dropIngredient = (sourceIndex, destinationIndex) => ({type: actionTypes.DROP_INGREDIENT, sourceIndex, destinationIndex});
+export const toggleAddNewIngredient = (addNewIngredientShown) => ({type: actionTypes.TOGGLE_ADD_NEW_INGREDIENT, addNewIngredientShown});
+export const setEditedIngredientId = (editedIngredientId) => ({type: actionTypes.SET_EDITED_INGREDIENT_ID, editedIngredientId});

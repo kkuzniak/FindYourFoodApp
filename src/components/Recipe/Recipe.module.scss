@@ -15,6 +15,11 @@
         height: 100%;
         position: relative;
         overflow: hidden;
+        border-radius: 10px 0 0 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $c-black-1;
 
         img {
             position: absolute;
@@ -22,6 +27,12 @@
             left: 50%;
             transform: translate(-50%, -50%);
             height: 105%;
+        }
+
+        span {
+            color: $c-white-1;
+            font-size: 30px;
+            font-weight: 700;
         }
     }
 

@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import classes from './RecipeIngredients.module.scss';
 import RecipeIngredient from './RecipeIgredient/RecipeIngredient';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import * as actions from '../../../modules/actions/index';
 
 const RecipeIngredients = ({ingredients}) => {
+    const dispatch = useDispatch();
+    const onDropIngredient = useCallback((sourceIndex, destinationIndex) => dispatch(actions.dropIngredient(sourceIndex, destinationIndex)), [dispatch]);
+    
+    const dragEndedHandler = (result) => {
+        if (!result.destination) return;
+        onDropIngredient(result.source.index, result.destination.index);
+    }
+
     return (
-        <DragDropContext>
-            <Droppable droppableId="RecipeIngredients" style={{overflowY: 'scroll'}}>
+        <DragDropContext onDragEnd={dragEndedHandler}>
+            <Droppable droppableId="RecipeIngredients">
             {(provided) => (
                 <ul className={classes.RecipeIngredients} {...provided.droppableProps} ref={provided.innerRef}>
                     {ingredients.map((ing, index) => (
@@ -19,7 +29,7 @@ const RecipeIngredients = ({ingredients}) => {
                                     <RecipeIngredient
                                         id={ing.id} 
                                         name={ing.name} 
-                                        measure={`${Number.parseFloat(ing.measure.amount).toFixed(0)} ${ing.measure.unit}`}
+                                        measure={`${Number.parseFloat(ing.measure.amount).toFixed(1)} ${ing.measure.unit}`}
                                     />
                                 </li>
                             )}

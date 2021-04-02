@@ -11,7 +11,7 @@ const RecipeItems = () => {
     return (
         <section className={classes.RecipeItems}>
             {foundRecipes.map(item =>
-                <Link key={item.id} to={`/recipe/${item.id}`}><RecipeItem title={item.title} imgSrc={item.image}/></Link>
+                <Link style={{textDecoration: 'none'}} key={item.id} to={`/recipe/${item.id}`}><RecipeItem title={item.title} imgSrc={item.image}/></Link>
             )}
         </section>
     );

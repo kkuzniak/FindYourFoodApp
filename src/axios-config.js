@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const key = '3f697d27361c4dfba68c0d5c332bf541';
+const key = 'a696eef2ee3743f5a9cd7016928dfa3a';
 
 export const axiosSearchRecipe = axios.create({
     baseURL: 'https://api.spoonacular.com/recipes/',

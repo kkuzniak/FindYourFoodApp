@@ -6,14 +6,14 @@ import classes from './RecipeIngredient.module.scss';
 const RecipeIngredient = ({id, name, measure}) => {
     const dispatch = useDispatch();
     const onRemoveIngredient = useCallback((ingId) => dispatch(actions.removeIngredient(ingId)), [dispatch])
-    const onToggleEditIngredient = useCallback((isShown, editedIngredientId) => dispatch(actions.toggleEditIngredient(isShown, editedIngredientId)), [dispatch]);
+    const onToggleEditIngredient = useCallback((editedIngredientId) => dispatch(actions.setEditedIngredientId(editedIngredientId)), [dispatch]);
 
     const removeIngredientHandler = () => {
         onRemoveIngredient(id);
     }
 
     const showEditIngredientHandler = () => {
-        onToggleEditIngredient(true, id);
+        onToggleEditIngredient(id);
     }
 
     return (
@@ -27,7 +27,6 @@ const RecipeIngredient = ({id, name, measure}) => {
             <div className={classes.RightMenuContainer}>
                 <div className={classes.Hoverable}></div>
                 <h3>{measure}</h3>
-                <i className="fas fa-arrows-alt-v"/>
                 <button className={classes.RemoveBtn} onClick={removeIngredientHandler}>
                     <i className="fas fa-minus-square"></i>
                 </button>

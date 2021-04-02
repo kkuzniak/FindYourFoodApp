@@ -1,8 +1,11 @@
 export {
+    resetSearchedRecipes,
     searchRecipes,
+    resetFetchedRecipe,
     fetchRecipe,
     toggleAddNewIngredient,
-    toggleEditIngredient,
-    addIngredient,
-    removeIngredient
+    setEditedIngredientId,
+    saveIngredient,
+    removeIngredient,
+    dropIngredient
 } from './actions';
